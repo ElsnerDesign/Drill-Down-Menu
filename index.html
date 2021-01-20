@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Slider Demo</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 	
+	<style type="text/css">
+		body {
+			padding: 0;
+			margin: 0;
+		}
+		section.navigation-header {
+			background: #f2f2f2;
+			height: 100vh;
+		}
+		.navigation ul {
+			padding: 0;
+			margin: 0;
+			list-style: none;
+			position: relative;
+		}
+		.menu-icon {
+			position: absolute;
+			left: 30px;
+			width: 25px;
+			height: 30px;
+			top: 30px;
+			z-index: 2;
+		}
+		.menu-icon .icon{
+			position: absolute;
+			left: 0;
+			right: 0;
+			height: 2px;
+			background: #000;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+		.menu-icon .icon span:nth-child(1) {
+			position: absolute;
+			content: "";
+			top: -8px;
+			background: #000;
+			height: 2px;
+			left: 0;
+			right: 0;
+		}
+		.menu-icon .icon span:nth-child(3) {
+			position: absolute;
+			content: "";
+			top: 8px;
+			background: #000;
+			height: 2px;
+			left: 0;
+			right: 0;
+		}
+		.navigation {
+			position: fixed;
+			width: 300px;
+			height: 100%;
+			left: -400px;
+			background: #fff;
+			padding: 100px 0px;
+			transition: 0.5s;
+		}
+		.navigation li:first-child {
+			border-top: 1px solid #ccc;
+		}
+		.navigation li {
+			border-bottom: 1px solid #ccc;
+		}
+		.menu-open .navigation {
+			left: 0;
+			transition: 0.5s;
+		}
+		.navigation li.child>.childmenu,
+		.navigation li.sub-child>.childmenu {
+			position: fixed;
+			left: -400px;
+			height: 100%;
+			top: 0;
+			padding-top: 100px;
+			width: 300px;
+			background: #fff;
+			transition: 0.5s;
+		}
+		.menu-open .navigation li.child.child-active > .childmenu {
+			left: 0;
+			transition: 0.5s;
+		}
+		.close {
+			width: 100%;
+			right: 0;
+			left: -400px;
+			padding: 0 25px;
+			height: 30px;
+			line-height: 30px;
+			background: #000;
+			color: #fff;
+			box-sizing: border-box;
+			top: -30px;
+			text-align: right;
+			display: block;
+		}
+		.menu-open span.close.close-active {
+			width: 100%;
+			transition: 0.5s;
+			left: 0;
+		}
+		.navigation li a {
+			padding: 10px 25px;
+			display: block;
+			text-decoration: none;
+			color: #000;
+		}
+	</style>
+</head>
+<body>
+<section class="navigation-header">
+	<div class="wrapper">
+		<div class="menu-icon">			
+			<span class="icon">
+				<span></span>
+				<span></span>
+				<span></span>
+			</span>
+		</div>
+		<div class="navigation">
+			<ul>
+				<li><a href="#">Parent 1</a></li>
+				<li class="child has-child">
+					<a href="#">Parent 2</a>
+					<div class="childmenu">
+						<span class="close">back</span>
+						<ul>
+							<li class="child has-child">
+								<a href="#">Parent 2 child 1</a>
+								<div class="childmenu">
+									<span class="close">back</span>
+									<ul>
+										<li class="child has-child"><a href="#">Parent 2 child 1 sub-child 1</a>
+											<div class="childmenu">
+												<span class="close">back</span>
+												<ul>
+													<li><a href="#">Parent 2 child 1 sub-child 1</a></li>
+													<li><a href="#">Parent 2 child 1 sub-child 2</a></li>
+													<li><a href="#">Parent 2 child 1 sub-child 3</a></li>
+													<li><a href="#">Parent 2 child 1 sub-child 4</a></li>
+													<li><a href="#">Parent 2 child 1 sub-child 5</a></li>					
+												</ul>
+											</div>
+										</li>
+										<li><a href="#">Parent 2 child 1 sub-child 2</a></li>
+										<li><a href="#">Parent 2 child 1 sub-child 3</a></li>
+										<li><a href="#">Parent 2 child 1 sub-child 4</a></li>
+										<li><a href="#">Parent 2 child 1 sub-child 5</a></li>					
+									</ul>
+								</div>
+							</li>
+							<li><a href="#">Parent 2 child 2</a></li>
+							<li><a href="#">Parent 2 child 3</a></li>
+							<li><a href="#">Parent 2 child 4</a></li>
+							<li><a href="#">Parent 2 child 5</a></li>						
+						</ul>
+					</div>
+				</li>
+				<li><a href="#">Parent 3</a></li>
+				<li><a href="#">Parent 4</a></li>
+				<li><a href="#">Parent 5</a></li>
+			</ul>
+		</div>
+	</div>
+</section>
+</body>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/custom.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.menu-icon').click(function(){
+			$('.navigation-header').toggleClass('menu-open');		  	
+			$('li.child').removeClass('child-active');
+			$('.close').removeClass('close-active');
+		});
+
+		$('li.child a').click(function(){
+			$(this).parent('.has-child').addClass('child-active');
+			$(this).next().children('.close').addClass('close-active');
+		});
+		$('li.child .close').on('click', function(){
+			$(this).parent().parent().removeClass('child-active');
+			$(this).removeClass('close-active');
+		});
+	});
+</script>
+</html>
