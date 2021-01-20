@@ -26,6 +26,7 @@
 			height: 30px;
 			top: 30px;
 			z-index: 2;
+			cursor: pointer;
 		}
 		.menu-icon .icon{
 			position: absolute;
@@ -113,6 +114,15 @@
 			text-decoration: none;
 			color: #000;
 		}
+		span.arrow-icon {
+		    position: absolute;
+		    right: 15px;
+		    width: 20px;
+		    height: 20px;
+		    background: #f2f2f2;
+		    text-align: center;
+		    font-weight: bold;
+		}
 	</style>
 </head>
 <body>
@@ -129,26 +139,17 @@
 			<ul>
 				<li><a href="#">Parent 1</a></li>
 				<li class="child has-child">
-					<a href="#">Parent 2</a>
+					<a href="#">Parent 2 <span class="arrow-icon">></span> </a>
 					<div class="childmenu">
 						<span class="close">back</span>
 						<ul>
 							<li class="child has-child">
-								<a href="#">Parent 2 child 1</a>
+								<a href="#">Parent 2 child 1  <span class="arrow-icon">></span></a>
 								<div class="childmenu">
 									<span class="close">back</span>
 									<ul>
-										<li class="child has-child"><a href="#">Parent 2 child 1 sub-child 1</a>
-											<div class="childmenu">
-												<span class="close">back</span>
-												<ul>
-													<li><a href="#">Parent 2 child 1 sub-child 1</a></li>
-													<li><a href="#">Parent 2 child 1 sub-child 2</a></li>
-													<li><a href="#">Parent 2 child 1 sub-child 3</a></li>
-													<li><a href="#">Parent 2 child 1 sub-child 4</a></li>
-													<li><a href="#">Parent 2 child 1 sub-child 5</a></li>					
-												</ul>
-											</div>
+										<li class="child has-child">
+											<a href="#">Parent 2 child 1 sub-child 1</a>
 										</li>
 										<li><a href="#">Parent 2 child 1 sub-child 2</a></li>
 										<li><a href="#">Parent 2 child 1 sub-child 3</a></li>
@@ -182,8 +183,8 @@
 			$('.close').removeClass('close-active');
 		});
 
-		$('li.child a').click(function(){
-			$(this).parent('.has-child').addClass('child-active');
+		$('li.child a .arrow-icon').click(function(){
+			$(this).parent().parent('.has-child').addClass('child-active');
 			$(this).next().children('.close').addClass('close-active');
 		});
 		$('li.child .close').on('click', function(){
